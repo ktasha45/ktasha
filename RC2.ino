@@ -18,63 +18,61 @@ void setup() {
   mySerial.begin(9600);
 }
 
-int Speed = 0;
-int RotationCoefficient = 128;
 void Exceleration(){
-  Speed++;
-  digitalWrite(6, LOW);
-  digitalWrite(7, HIGH);
-  analogWrite(10, Speed);
+  digitalWrite(4, LOW);
+  digitalWrite(5, HIGH);
 }
 
 void Break(){
-  Speed--; 
-  digitalWrite(6, LOW);
-  digitalWrite(7, HIGH);
-  analogWrite(10, Speed);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, LOW);
 }
 
 void Left(){
-  RotationCoefficient++;
-  digitalWrite(4, HIGH);
-  digitalWrite(5, LOW);
-  analogWrite(11. RotationCoefficient);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, LOW);
 }
 
 void Right(){
-  RotationCoefficient--;
-  digitalWrite(4, HIGH);
-  digitalWrite(5, LOW);
-  analogWrite(11, RotationCoefficient);
+  digitalWrite(7, HIGH);
+  digitalWrite(6, LOW);
 }
 
 void Stop(){
-  Speed = 0;
+  digitalWrite(5, LOW);
+  digitalWrite(4, LOW);
+}
+
+void TStop(){
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
 }
 
 void loop() {
   if (mySerial.available()) {
     a1 = char(mySerial.read());
-    Serial.write(a1);
-  }
-
+    
   switch(a1){
-    case F:
+    case 'F':
       Exceleration();
       break;
-    case G:
+    case 'G':
       Break();
       break;
-    case L:
+    case 'L':
       Left();
       break;
-    case R:
+    case 'R':
       Right();
       break;
-    case S:
-    
+    case 'S':
+      Stop();
+      break;
+    case 'P':
+      TStop();
     default:
       break;
+  }
   }
 
 

@@ -18,14 +18,13 @@ void setup() {
   mySerial.begin(9600);
 }
 
-int Speed=0;
-
+int Speed = 0;
+int RotationCoefficient = 128;
 void Exceleration(){
   Speed++;
   digitalWrite(6, LOW);
   digitalWrite(7, HIGH);
   analogWrite(10, Speed);
-  delay(1);
 }
 
 void Break(){
@@ -33,17 +32,24 @@ void Break(){
   digitalWrite(6, LOW);
   digitalWrite(7, HIGH);
   analogWrite(10, Speed);
-  delay(1);
 }
 
 void Left(){
+  RotationCoefficient++;
   digitalWrite(4, HIGH);
   digitalWrite(5, LOW);
+  analogWrite(11. RotationCoefficient);
 }
 
 void Right(){
-  digitalWrite(4, LOW);
-  digitalWrite(5, HIGH);
+  RotationCoefficient--;
+  digitalWrite(4, HIGH);
+  digitalWrite(5, LOW);
+  analogWrite(11, RotationCoefficient);
+}
+
+void Stop(){
+  Speed = 0;
 }
 
 void loop() {
@@ -65,6 +71,8 @@ void loop() {
     case R:
       Right();
       break;
+    case S:
+    
     default:
       break;
   }
